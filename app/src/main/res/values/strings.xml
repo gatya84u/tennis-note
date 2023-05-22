@@ -6,4 +6,19 @@
     <string name="title_checklist">CheckList</string>
     <string name="title_note">Note</string>
     <string name="title_schedule">Schedule</string>
+
+    <!-- fragment_checklist-->
+    <!-- fragment_note -->
+    <string name="note_match_name">試合名</string>
+    <string name="note_match_date">試合日</string>
+    <string name="note_match_type">種別</string>
+    <string name="note_score">スコア</string>
+    <string name="note_title_look_back">戦評</string>
+    <string name="note_look_back">ノート</string>
+    <string-array name="match_type">
+        <item>シングルス</item>
+        <item>ダブルス</item>
+        <item>ミックスダブルス</item>
+    </string-array>
+    <!-- fragment_schedule-->
 </resources>

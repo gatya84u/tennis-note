@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import u.akita.tennis_note.databinding.FragmentHomeBinding
 
-class HomeFragment : Fragment() {
+class ChecklistFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
 

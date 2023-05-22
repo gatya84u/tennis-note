@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import u.akita.tennis_note.databinding.FragmentDashboardBinding
 
-class DashboardFragment : Fragment() {
+class NoteFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null
 

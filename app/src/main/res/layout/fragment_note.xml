@@ -1,6 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <EditText
+        android:id="@+id/match_date"
+        android:layout_width="198dp"
+        android:layout_height="43dp"
+        android:ems="10"
+        android:hint="@string/note_match_date"
+        android:inputType="date"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="150dp" />
+
+    <Spinner
+        android:id="@+id/match_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBottomOf="@id/match_date"
+        app:layout_constraintRight_toRightOf="@id/match_date"
+        app:layout_constraintStart_toEndOf="@+id/match_date" />
+
+    <EditText
+        android:id="@+id/match_name"
+        android:layout_width="379dp"
+        android:layout_height="47dp"
+        android:ems="10"
+        android:hint="@string/note_match_name"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="@+id/match_date"
+        app:layout_constraintTop_toBottomOf="@+id/match_date" />
+
+    <EditText
+        android:id="@+id/score_self"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintEnd_toStartOf="@+id/score_hiphen"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="130dp" />
+
+    <EditText
+        android:id="@+id/score_opponent"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/score_hiphen"
+        app:layout_constraintStart_toRightOf="@+id/score_hiphen"
+        tools:layout_editor_absoluteY="130dp" />
+
+    <TextView
+        android:id="@+id/title_look_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="@string/note_title_look_back"
+        app:layout_constraintStart_toStartOf="@+id/match_date"
+        app:layout_constraintTop_toBottomOf="@id/score_self"/>
+
+    <EditText
+        android:id="@+id/editTextText7"
+        android:layout_width="374dp"
+        android:layout_height="41dp"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="@string/note_look_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_look_back" />
+
+    <TextView
+        android:id="@+id/score_hiphen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="－"
+        app:layout_constraintEnd_toStartOf="@+id/score_opponent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/score_self"
+        tools:layout_editor_absoluteY="139dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
