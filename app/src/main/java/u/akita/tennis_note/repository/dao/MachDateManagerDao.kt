@@ -5,7 +5,7 @@ import androidx.room.Query
 import u.akita.tennis_note.repository.model.MatchDateManager
 
 @Dao
-interface MachDateManagerDao {
-    @Query("SELECT * FROM matchdatemanager")
+interface MatchDateManagerDao {
+    @Query("SELECT * FROM match_date_manager")
     fun getAll(): List<MatchDateManager>
 }

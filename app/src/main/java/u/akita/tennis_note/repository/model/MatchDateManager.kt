@@ -5,9 +5,11 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.Date
 
-@Entity
+@Entity(tableName = "match_date_manager")
 data class MatchDateManager(
-    @PrimaryKey val id: Int,
-    @ColumnInfo(name = "match_date") val matchDate: Date?,
-    @ColumnInfo(name = "match_name") val matchName: String?
+    @PrimaryKey(autoGenerate = true) val id: Int,
+    val matchDate: String,
+    val matchType: String,
+    val matchName: String,
+    val matchPlace: String
 )

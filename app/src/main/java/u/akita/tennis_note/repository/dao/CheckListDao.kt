@@ -6,6 +6,6 @@ import u.akita.tennis_note.repository.model.CheckList
 
 @Dao
 interface CheckListDao {
-    @Query("SELECT * FROM CheckList")
+    @Query("SELECT * FROM checklist")
     fun getAll(): List<CheckList>
 }

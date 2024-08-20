@@ -6,6 +6,6 @@ import u.akita.tennis_note.repository.model.MatchManager
 
 @Dao
 interface MatchManagerDao {
-    @Query("SELECT * FROM MatchManager")
+    @Query("SELECT * FROM match_manager")
     fun getAll(): List<MatchManager>
 }

@@ -8,6 +8,9 @@
     <string name="title_schedule">Schedule</string>
 
     <!-- fragment_checklist-->
+    <string name="checklist_effort">取組中課題</string>
+    <string name="checklist_completed">クリア済課題</string>
+
     <!-- fragment_note -->
     <string name="note_match_name">試合名</string>
     <string name="note_match_date">試合日</string>
