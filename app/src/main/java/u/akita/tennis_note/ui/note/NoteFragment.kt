@@ -1,44 +1,77 @@
 package u.akita.tennis_note.ui.note
 
+import android.app.DatePickerDialog
+import android.app.DatePickerDialog.OnDateSetListener
+import android.content.Context
+import android.content.DialogInterface.OnClickListener
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.ArrayAdapter
+import android.widget.DatePicker
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-//import u.akita.tennis_note.databinding.FragmentDashboardBinding
 import u.akita.tennis_note.databinding.FragmentNoteBinding
-import u.akita.tennis_note.ui.dashboard.DashboardViewModel
+import u.akita.tennis_note.enum.MatchTypeSpinner
+import u.akita.tennis_note.ui.dialog.DatePick
+import java.time.Month
 
 class NoteFragment : Fragment() {
+    private lateinit var binding: FragmentNoteBinding
 
-    private var _binding: FragmentNoteBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View {
-        val dashboardViewModel =
-                ViewModelProvider(this).get(DashboardViewModel::class.java)
-
-        _binding = FragmentNoteBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-//        val textView: TextView = binding.textDashboard
-//        dashboardViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
-        return root
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentNoteBinding.inflate(inflater, container, false)
+        binding.registerButton.setOnClickListener{
+            val listener = context as? OnButtonClickListener
+            listener?.onButtonClicked(binding)
+        }
+
+        binding.matchDate.setOnTouchListener{ v, event ->
+            if(event.action == MotionEvent.ACTION_DOWN){
+                val dateFragment = DatePick(this@NoteFragment)
+                dateFragment.show(parentFragmentManager, "datePicker")
+                true
+            }else{
+                false
+            }
+        }
+
+        val adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            MatchTypeSpinner.values().map{it.displayValue}
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
+
+        binding.matchType.adapter = adapter
+        binding.matchDate.setSelection(0)
+
+        return binding.root
+    }
+
+    fun onDateSelected(year: Int, month: Int, day: Int) {
+        val selectedDate = "$year/${month.plus(1)}/$day"
+        binding.matchDate.setText(selectedDate)
+    }
+
+    interface OnButtonClickListener{
+        fun onButtonClicked(binding: FragmentNoteBinding){
+            val matchDate = binding.matchDate.text.toString()
+            val matchName = binding.matchName.text.toString()
+            val selfScore = binding.scoreSelf.text.toString()
+            val opponentScore = binding.scoreOpponent.text.toString()
+            val lookBack = binding.lookingBackGame.text.toString()
+//            val selectedItem = binding.matchType.selectedItem.value
+
+        }
     }
 }

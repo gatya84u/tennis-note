@@ -2,7 +2,8 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
-    id("com.google.devtools.ksp") //TODO dependenciesでkspを使う可能性があったので一応定義
+    id("com.google.devtools.ksp")
+    id("kotlin-android")
 }
 kotlin {
     jvmToolchain(17)
@@ -34,11 +35,11 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
 }
 
 dependencies {
-
     implementation("androidx.core:core-ktx:1.8.0")
     implementation("androidx.appcompat:appcompat:1.4.1")
     implementation("com.google.android.material:material:1.5.0")
@@ -50,37 +51,17 @@ dependencies {
     implementation("androidx.core:core-ktx:+")
     implementation("androidx.recyclerview:recyclerview:1.1.0")
     implementation("androidx.cardview:cardview:1.0.0")
+    implementation("androidx.databinding:databinding-runtime:8.5.2")
 
     /**
      * room setup
      */
-    val room_version = "2.6.1"
-    implementation("androidx.room:room-runtime:$room_version")
-    implementation("androidx.room:room-ktx:$room_version")
-    annotationProcessor("androidx.room:room-compiler:$room_version")
-
-    // To use Kotlin annotation processing tool (kapt)
-    kapt("androidx.room:room-compiler:2.5.1")
-    // To use Kotlin Symbol Processing (KSP)
-    //TODO android developer siteで記載されていたが、room-compilerはkaptで定義してるので不要？
-//    classpath "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:2.0.10-1.0.24"
-//    ksp("androidx.room:room-compiler:2.5.1")
-
-    // optional - Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:2.5.1")
-
-    // optional - RxJava2 support for Room
-    implementation("androidx.room:room-rxjava2:2.5.1")
-
-    // optional - RxJava3 support for Room
-    implementation("androidx.room:room-rxjava3:2.5.1")
-
-    // optional - Guava support for Room, including Optional and ListenableFuture
-    implementation("androidx.room:room-guava:2.5.1")
-
-    // optional - Test helpers
-    testImplementation("androidx.room:room-testing:2.5.1")
-
-    // optional - Paging 3 Integration
-    implementation("androidx.room:room-paging:2.5.1")
+    val roomVersion = "2.6.1"
+    kapt("androidx.room:room-compiler:$roomVersion")
+    implementation("androidx.room:room-runtime:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+    implementation("androidx.room:room-guava:$roomVersion")
+    testImplementation("androidx.room:room-testing:$roomVersion")
+    implementation("androidx.room:room-paging:$roomVersion")
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
 }
