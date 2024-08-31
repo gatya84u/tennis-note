@@ -1,6 +1,7 @@
 package u.akita.tennis_note.repository.dao
 
 import androidx.room.Dao
+import androidx.room.Insert
 import androidx.room.Query
 import u.akita.tennis_note.repository.model.MatchDateManager
 
@@ -8,4 +9,7 @@ import u.akita.tennis_note.repository.model.MatchDateManager
 interface MatchDateManagerDao {
     @Query("SELECT * FROM match_date_manager")
     fun getAll(): List<MatchDateManager>
+
+    @Insert
+    fun insert(matchDateManager: MatchDateManager): Long
 }

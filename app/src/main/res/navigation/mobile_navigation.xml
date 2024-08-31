@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_checklist" />
 
     <fragment
-        android:id="@+id/navigation_note"
+        android:id="@+id/navigation_noteList"
         android:name="u.akita.tennis_note.ui.note.NoteFragment"
         android:label="@string/title_note"
         tools:layout="@layout/fragment_note" />
 
     <fragment
         android:id="@+id/navigation_schedule"
-        android:name="u.akita.tennis_note.ui.notifications.ScheduleFragment"
+        android:name="u.akita.tennis_note.ui.schedule.ScheduleFragment"
         android:label="@string/title_schedule"
         tools:layout="@layout/fragment_schedule" />
 </navigation>

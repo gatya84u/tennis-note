@@ -1,6 +1,5 @@
 package u.akita.tennis_note
 
-import android.app.Application
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -10,7 +9,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import u.akita.tennis_note.databinding.ActivityMainBinding
 import u.akita.tennis_note.repository.database.AppDatabase
-import u.akita.tennis_note.ui.note.NoteFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.navigation_checklist, R.id.navigation_note, R.id.navigation_schedule))
+                R.id.navigation_checklist, R.id.navigation_noteList, R.id.navigation_schedule))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 

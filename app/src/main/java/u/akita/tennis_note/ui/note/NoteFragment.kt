@@ -1,24 +1,22 @@
 package u.akita.tennis_note.ui.note
 
-import android.app.DatePickerDialog
-import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Context
-import android.content.DialogInterface.OnClickListener
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.DatePicker
 import androidx.fragment.app.Fragment
 import u.akita.tennis_note.databinding.FragmentNoteBinding
 import u.akita.tennis_note.enum.MatchTypeSpinner
+import u.akita.tennis_note.repository.model.MatchManager
+import u.akita.tennis_note.repository.model.MatchDateManager
 import u.akita.tennis_note.ui.dialog.DatePick
-import java.time.Month
 
 class NoteFragment : Fragment() {
     private lateinit var binding: FragmentNoteBinding
+    private lateinit var viewModel: NoteViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -29,10 +27,10 @@ class NoteFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        viewModel = NoteViewModel(requireActivity().application)
         binding = FragmentNoteBinding.inflate(inflater, container, false)
         binding.registerButton.setOnClickListener{
-            val listener = context as? OnButtonClickListener
-            listener?.onButtonClicked(binding)
+            viewModel.registerMatchData(binding)
         }
 
         binding.matchDate.setOnTouchListener{ v, event ->
@@ -53,7 +51,7 @@ class NoteFragment : Fragment() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
 
         binding.matchType.adapter = adapter
-        binding.matchDate.setSelection(0)
+        binding.matchType.setSelection(0)
 
         return binding.root
     }
@@ -61,17 +59,5 @@ class NoteFragment : Fragment() {
     fun onDateSelected(year: Int, month: Int, day: Int) {
         val selectedDate = "$year/${month.plus(1)}/$day"
         binding.matchDate.setText(selectedDate)
-    }
-
-    interface OnButtonClickListener{
-        fun onButtonClicked(binding: FragmentNoteBinding){
-            val matchDate = binding.matchDate.text.toString()
-            val matchName = binding.matchName.text.toString()
-            val selfScore = binding.scoreSelf.text.toString()
-            val opponentScore = binding.scoreOpponent.text.toString()
-            val lookBack = binding.lookingBackGame.text.toString()
-//            val selectedItem = binding.matchType.selectedItem.value
-
-        }
     }
 }
