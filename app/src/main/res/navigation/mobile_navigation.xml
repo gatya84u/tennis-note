@@ -12,10 +12,16 @@
         tools:layout="@layout/fragment_checklist" />
 
     <fragment
-        android:id="@+id/navigation_noteList"
+        android:id="@+id/navigation_note"
         android:name="u.akita.tennis_note.ui.note.NoteFragment"
         android:label="@string/title_note"
         tools:layout="@layout/fragment_note" />
+    <fragment
+        android:id="@+id/navigation_note_list"
+        android:name="u.akita.tennis_note.ui.note_list.NoteListFragment"
+        android:label="ノートリスト(仮)"
+        tools:layout="@layout/fragment_note_list"
+        />
 
     <fragment
         android:id="@+id/navigation_schedule"

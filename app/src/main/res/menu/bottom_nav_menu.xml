@@ -7,7 +7,7 @@
         android:title="@string/title_checklist" />
 
     <item
-        android:id="@+id/navigation_noteList"
+        android:id="@+id/navigation_note_list"
         android:icon="@drawable/ic_note"
         android:title="@string/title_note" />
 

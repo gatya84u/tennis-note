@@ -10,8 +10,6 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import u.akita.tennis_note.databinding.FragmentNoteBinding
 import u.akita.tennis_note.enum.MatchTypeSpinner
-import u.akita.tennis_note.repository.model.MatchManager
-import u.akita.tennis_note.repository.model.MatchDateManager
 import u.akita.tennis_note.ui.dialog.DatePick
 
 class NoteFragment : Fragment() {
