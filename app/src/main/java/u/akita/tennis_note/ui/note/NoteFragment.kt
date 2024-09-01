@@ -2,6 +2,7 @@ package u.akita.tennis_note.ui.note
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +35,18 @@ class NoteFragment : Fragment(), DateSelectedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val initMatchDateId = arguments?.getString("matchDateId")
+        if (initMatchDateId != null) {
+            binding.matchDateId.text = initMatchDateId
+
+            if(initMatchDateId != "0"){
+                //TODO initMatchDateIdが0ではない場合、DBからデータを取得して初期値としてセット
+            }else{
+                val initMatchDate: Editable = Editable.Factory.getInstance().newEditable(arguments?.getString("matchDate"))
+                binding.matchDate.text = initMatchDate
+            }
+        }
 
         binding.registerButton.setOnClickListener{
             viewModel.registerMatchData(binding)

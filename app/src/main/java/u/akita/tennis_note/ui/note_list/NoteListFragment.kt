@@ -2,17 +2,20 @@ package u.akita.tennis_note.ui.note_list
 
 import android.content.Context
 import android.os.Bundle
+import android.provider.ContactsContract.CommonDataKinds.Note
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import u.akita.tennis_note.R
 import u.akita.tennis_note.databinding.FragmentNoteListBinding
 import u.akita.tennis_note.enum.MatchType
 import u.akita.tennis_note.enum.SearchMatchType
 import u.akita.tennis_note.enum.SearchPeriod
 import u.akita.tennis_note.ui.dialog.DatePick
 import u.akita.tennis_note.ui.dialog.DateSelectedListener
+import u.akita.tennis_note.ui.note.NoteFragment
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -90,7 +93,17 @@ class NoteListFragment: Fragment(), DateSelectedListener {
         binding.matchType.setSelection(0)
 
         binding.newRegistration.setOnClickListener{
-//            TODO NoteFragmentに値を渡す
+            val fragment = NoteFragment().apply {
+                arguments = Bundle().apply {
+                    putString("matchDateId", "0")
+                    putString("matchDate", currentDate)
+                }
+            }
+
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.nav_host_fragment_activity_main, fragment)
+                .addToBackStack(null)
+                .commit()
         }
         super.onViewCreated(view, savedInstanceState)
     }
