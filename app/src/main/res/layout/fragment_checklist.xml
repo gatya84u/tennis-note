@@ -1,23 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <!-- TODO ExpandableLayoutなどのライブラリ適用-->
-    <TextView
-        android:id="@+id/challenging_tasks"
+<layout>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/checklist_effort"
-        tools:ignore="MissingConstraints" />
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+        <Button
+            android:id="@+id/register_new_task"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="新規登録"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+        <TextView
+            android:id="@+id/challenging_tasks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="取組中課題"
+            app:layout_constraintTop_toBottomOf="@id/register_new_task"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+        <LinearLayout
+            android:id="@+id/challenging_list_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/challenging_tasks"
+            app:layout_constraintLeft_toLeftOf="parent"
+            ></LinearLayout>
 
-    <TextView
-        android:id="@+id/complete_tasks"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/checklist_completed"
-        app:layout_constraintTop_toBottomOf="@id/challenging_tasks"
-        tools:ignore="MissingConstraints" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/complete_tasks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="クリア済課題"
+            app:layout_constraintTop_toBottomOf="@id/challenging_tasks"
+            app:layout_constraintLeft_toLeftOf="parent" />
+        <LinearLayout
+            android:id="@+id/complete_list_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/complete_tasks"
+            app:layout_constraintLeft_toLeftOf="parent"
+            ></LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_checklist"
-        android:name="u.akita.tennis_note.ui.home.ChecklistFragment"
+        android:name="u.akita.tennis_note.ui.checklist.ChecklistFragment"
         android:label="@string/title_checklist"
         tools:layout="@layout/fragment_checklist" />
 
