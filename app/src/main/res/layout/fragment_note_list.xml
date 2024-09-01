@@ -47,6 +47,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="8dp"
+                        android:checked="true"
                         android:layout_margin="8dp"
                         android:text="全期間" />
                     <RadioButton
@@ -61,22 +62,25 @@
 
             <!-- 指定期間選択時に表示するEditTextとSpinner -->
             <LinearLayout
+                android:id="@+id/period_condition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
                 <EditText
                     android:id="@+id/period_start_date"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:inputType="none"
                     android:hint="開始日"
                     android:layout_weight="1"
-                    android:visibility="gone" />
+                     />
                 <Spinner
-                    android:id="@+id/period_match_type"
+                    android:id="@+id/specified_period"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:visibility="gone" />
+                     />
             </LinearLayout>
 
             <!-- 試合種別とSpinnerを横並びで配置 -->
@@ -91,7 +95,7 @@
                     android:padding="8dp"
                     android:text="試合種別" />
                 <Spinner
-                    android:id="@+id/pointed_match"
+                    android:id="@+id/match_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>

@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import u.akita.tennis_note.TennisNote
 import u.akita.tennis_note.databinding.FragmentNoteBinding
-import u.akita.tennis_note.enum.MatchTypeSpinner
+import u.akita.tennis_note.enum.MatchType
 import u.akita.tennis_note.repository.model.MatchDateManager
 import u.akita.tennis_note.repository.model.MatchManager
 import java.sql.Types.NULL
@@ -24,7 +24,7 @@ class NoteViewModel(application: Application): AndroidViewModel(application) {
         val opponentScore = binding.scoreOpponent.text.toString().toIntOrNull()?:0
         val lookBack = binding.lookingBackGame.text.toString()?:null
         val selectedItem = binding.matchType.selectedItem as String
-        val selectedMatchType = MatchTypeSpinner.values().firstOrNull { it.displayValue == selectedItem }?.value
+        val selectedMatchType = MatchType.values().firstOrNull { it.displayValue == selectedItem }?.value
         var matchDateId = binding.matchDateId.id
         var matchId = binding.matchId.id
 

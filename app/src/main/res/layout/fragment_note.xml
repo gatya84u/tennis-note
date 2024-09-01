@@ -94,7 +94,7 @@
             android:id="@+id/opponent"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="対戦相手"
+            android:hint="対戦相手"
             app:layout_constraintStart_toEndOf="@id/score_opponent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/match_name" />
