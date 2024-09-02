@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -52,19 +53,15 @@ class NoteFragment : Fragment(), DateSelectedListener {
             viewModel.registerMatchData(binding)
         }
 
-        binding.matchDateId.setOnClickListener{
-            this.showDatePicker()
+        binding.matchDate.setOnTouchListener{ v, event ->
+            if(event.action == MotionEvent.ACTION_DOWN){
+                val dateFragment = DatePick(this@NoteFragment)
+                dateFragment.show(parentFragmentManager, "datePicker")
+                true
+            }else{
+                false
+            }
         }
-
-//        binding.matchDate.setOnTouchListener{ v, event ->
-//            if(event.action == MotionEvent.ACTION_DOWN){
-//                val dateFragment = DatePick(this@NoteFragment)
-//                dateFragment.show(parentFragmentManager, "datePicker")
-//                true
-//            }else{
-//                false
-//            }
-//        }
 
         val adapter = ArrayAdapter(
             requireContext(),

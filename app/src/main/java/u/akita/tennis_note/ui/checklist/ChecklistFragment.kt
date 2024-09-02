@@ -6,8 +6,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import u.akita.tennis_note.R
 import u.akita.tennis_note.databinding.FragmentChecklistBinding
+import u.akita.tennis_note.databinding.ItemChecklistBinding
+import u.akita.tennis_note.repository.model.Checklist
 import u.akita.tennis_note.ui.dialog.CheckItem
 
 class ChecklistFragment: Fragment() {
@@ -36,7 +40,7 @@ class ChecklistFragment: Fragment() {
         // LiveData を監視してデータが変更されたときに UI を更新する
         viewModel.getListData().observe(viewLifecycleOwner) { allChecklist ->
             Log.i("allChecklist", allChecklist.toString())
-            // UI 更新の処理を行う
+            updateUI(allChecklist)
         }
 
         binding.completeTasks.setOnClickListener{
@@ -48,8 +52,35 @@ class ChecklistFragment: Fragment() {
         }
 
         binding.registerNewTask.setOnClickListener{
-            val dialog = CheckItem(requireContext())
-            dialog.show()
+            val dialog = CheckItem()
+            dialog.show(parentFragmentManager, "CheckItemDialog")
+        }
+    }
+
+    private fun updateUI(checklist: List<Checklist>){
+        val challengingList = checklist.filter { !it.completeFlag }
+        val completeList = checklist.filter { it.completeFlag }
+
+        // 挑戦中リストを更新
+        updateListContainer(binding.challengingListContainer, challengingList)
+
+        // 完了リストを更新
+        updateListContainer(binding.completeListContainer, completeList)
+    }
+
+    private fun updateListContainer(container: ViewGroup, checklist: List<Checklist>){
+        container.removeAllViews()
+        val inflater = LayoutInflater.from(requireContext())
+
+        for(item in checklist){
+            val binding = DataBindingUtil.inflate<ItemChecklistBinding>(
+                inflater, R.layout.item_checklist, container, false
+            )
+
+//            binding.checklist = item
+//            binding.executePendingBindings()
+
+            container.addView(binding.root)
         }
     }
 }

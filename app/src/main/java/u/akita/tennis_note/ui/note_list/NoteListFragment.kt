@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.provider.ContactsContract.CommonDataKinds.Note
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -65,9 +66,14 @@ class NoteListFragment: Fragment(), DateSelectedListener {
         binding.periodStartDate.setText(currentDate)
 
         //開始日をタップしたらカレンダーを表示
-        //TODO setOnTouchListenerにした方が反応良くなる？
-        binding.periodStartDate.setOnClickListener{
-            this.showDatePicker()
+        binding.periodStartDate.setOnTouchListener{ v, event ->
+            if(event.action == MotionEvent.ACTION_DOWN){
+                val dateFragment = DatePick(this@NoteListFragment)
+                dateFragment.show(parentFragmentManager, "datePicker")
+                true
+            }else{
+                false
+            }
         }
 
         //検索期間のpicker作成
