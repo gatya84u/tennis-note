@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import u.akita.tennis_note.R
 import u.akita.tennis_note.databinding.FragmentChecklistBinding
 import u.akita.tennis_note.databinding.ItemChecklistBinding
@@ -85,16 +87,28 @@ class ChecklistFragment: Fragment() {
         val inflater = LayoutInflater.from(requireContext())
 
         for(item in checklist){
-            val binding = DataBindingUtil.inflate<ItemChecklistBinding>(
+            val itemBinding = DataBindingUtil.inflate<ItemChecklistBinding>(
                 inflater, R.layout.item_checklist, container, false
             )
 
             val categoryStr = CheckCategory.values().find { it.value == item.themeCategory.toString() }
-            binding.themeCategory.text = categoryStr?.displayValue ?: "不明なカテゴリ"
-            binding.checkBox.isChecked = item.completeFlag
-            binding.themeTitle.text = item.themeTitle
+            itemBinding.themeCategory.text = categoryStr?.displayValue ?: "不明なカテゴリ"
+            itemBinding.checkBox.isChecked = item.completeFlag
+            itemBinding.themeTitle.text = item.themeTitle
+            itemBinding.checkId.text = item.id.toString()
 
-            container.addView(binding.root)
+            itemBinding.checkBox.setOnClickListener{
+                item.completeFlag = itemBinding.checkBox.isChecked
+                lifecycleScope.launch {
+                    try{
+                        viewModel.updateCheckItem(item)
+                    }catch (e: Exception){
+                        Log.e("CheckItem", "Error", e)
+                    }
+                }
+            }
+
+            container.addView(itemBinding.root)
         }
     }
 }

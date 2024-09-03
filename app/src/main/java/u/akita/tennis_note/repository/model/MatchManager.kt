@@ -9,9 +9,9 @@ import org.w3c.dom.Text
 data class MatchManager (
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo(name="match_date_id") val matchDateId: Int,
-    @ColumnInfo(name = "opponent") val opponent: String?,
-    @ColumnInfo(name = "gain_game_count") val gainGameCount: Int?,
-    @ColumnInfo(name = "lost_game_count") val lostGameCount: Int?,
-    @ColumnInfo(name = "match_note") val matchNote: String?,
-    @ColumnInfo(name = "movie_url") val movieUrl: String?
+    @ColumnInfo(name = "opponent") var opponent: String?,
+    @ColumnInfo(name = "gain_game_count") var gainGameCount: Int?,
+    @ColumnInfo(name = "lost_game_count") var lostGameCount: Int?,
+    @ColumnInfo(name = "match_note") var matchNote: String?,
+    @ColumnInfo(name = "movie_url") var movieUrl: String?
 )

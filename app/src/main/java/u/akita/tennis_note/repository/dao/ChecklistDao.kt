@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import u.akita.tennis_note.repository.model.Checklist
 
 @Dao
@@ -13,4 +14,7 @@ interface ChecklistDao {
 
     @Insert
     fun insert(checklist: Checklist): Long
+
+    @Update
+    fun update(checklist: Checklist)
 }

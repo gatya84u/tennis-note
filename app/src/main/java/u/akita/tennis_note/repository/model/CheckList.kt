@@ -5,8 +5,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "checklist")
 data class Checklist(
     @PrimaryKey(autoGenerate = true) val id: Int,
-    val themeCategory: Int,
-    val themeTitle: String,
-    val completeFlag: Boolean,
-    val completeDate: String
+    var themeCategory: Int,
+    var themeTitle: String,
+    var completeFlag: Boolean,
+    var completeDate: String
 )

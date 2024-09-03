@@ -9,8 +9,8 @@ import java.util.Date
 @Entity(tableName = "match_date_manager")
 data class MatchDateManager(
     @PrimaryKey(autoGenerate = true) val id: Int,
-    @ColumnInfo(name = "match_date")val matchDate: String,
-    @ColumnInfo(name = "match_type")val matchType: String,
-    @ColumnInfo(name = "match_name")val matchName: String,
-    @ColumnInfo(name = "match_place")val matchPlace: String?
+    @ColumnInfo(name = "match_date")var matchDate: String,
+    @ColumnInfo(name = "match_type")var matchType: String,
+    @ColumnInfo(name = "match_name")var matchName: String,
+    @ColumnInfo(name = "match_place")var matchPlace: String?
 )

@@ -8,6 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import u.akita.tennis_note.TennisNote
 import u.akita.tennis_note.databinding.DialogCheckItemBinding
+import u.akita.tennis_note.databinding.ItemChecklistBinding
 import u.akita.tennis_note.enum.CheckCategory
 import u.akita.tennis_note.repository.model.Checklist
 
@@ -27,6 +28,12 @@ class ChecklistViewModel(application: Application): AndroidViewModel(application
             val id = checklistDao.insert(checklist)
             Log.d("id", id.toString())
             id
+        }
+    }
+
+    suspend fun updateCheckItem(checklistItem: Checklist){
+        withContext(Dispatchers.IO){
+            checklistDao.update(checklistItem)
         }
     }
 }
