@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import u.akita.tennis_note.R
 import u.akita.tennis_note.databinding.FragmentChecklistBinding
 import u.akita.tennis_note.databinding.ItemChecklistBinding
+import u.akita.tennis_note.enum.CheckCategory
 import u.akita.tennis_note.repository.model.Checklist
 import u.akita.tennis_note.ui.dialog.CheckItem
 
@@ -36,6 +37,7 @@ class ChecklistFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val completeContainer = binding.completeListContainer
+        val challengingContainer = binding.challengingListContainer
 
         // LiveData を監視してデータが変更されたときに UI を更新する
         viewModel.getListData().observe(viewLifecycleOwner) { allChecklist ->
@@ -43,6 +45,16 @@ class ChecklistFragment: Fragment() {
             updateUI(allChecklist)
         }
 
+        //取組中課題の開閉
+        binding.challengingTasks.setOnClickListener{
+            if(challengingContainer.visibility == View.GONE){
+                challengingContainer.visibility = View.VISIBLE
+            }else{
+                challengingContainer.visibility = View.GONE
+            }
+        }
+
+        //クリア済み課題の開閉
         binding.completeTasks.setOnClickListener{
             if(completeContainer.visibility == View.GONE){
                 completeContainer.visibility = View.VISIBLE
@@ -77,8 +89,10 @@ class ChecklistFragment: Fragment() {
                 inflater, R.layout.item_checklist, container, false
             )
 
-//            binding.checklist = item
-//            binding.executePendingBindings()
+            val categoryStr = CheckCategory.values().find { it.value == item.themeCategory.toString() }
+            binding.themeCategory.text = categoryStr?.displayValue ?: "不明なカテゴリ"
+            binding.checkBox.isChecked = item.completeFlag
+            binding.themeTitle.text = item.themeTitle
 
             container.addView(binding.root)
         }

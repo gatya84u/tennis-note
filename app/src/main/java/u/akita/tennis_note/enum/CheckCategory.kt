@@ -5,5 +5,4 @@ enum class CheckCategory(val value: String, val displayValue: String) {
     ITEM2("2", "ストローク"),
     ITEM3("3", "メンタル"),
     ITEM4("4", "戦略・戦術")
-
 }

@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="クリア済課題"
-            app:layout_constraintTop_toBottomOf="@id/challenging_tasks"
+            app:layout_constraintTop_toBottomOf="@id/challenging_list_container"
             app:layout_constraintLeft_toLeftOf="parent" />
         <LinearLayout
             android:id="@+id/complete_list_container"
