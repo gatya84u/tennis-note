@@ -3,17 +3,22 @@ package u.akita.tennis_note.ui.note_list
 import android.content.Context
 import android.os.Bundle
 import android.provider.ContactsContract.CommonDataKinds.Note
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import u.akita.tennis_note.R
 import u.akita.tennis_note.databinding.FragmentNoteListBinding
+import u.akita.tennis_note.databinding.ItemChecklistBinding
+import u.akita.tennis_note.databinding.ItemNoteListBinding
 import u.akita.tennis_note.enum.MatchType
 import u.akita.tennis_note.enum.SearchMatchType
 import u.akita.tennis_note.enum.SearchPeriod
+import u.akita.tennis_note.repository.dataclass.MatchWithDate
 import u.akita.tennis_note.ui.dialog.DatePick
 import u.akita.tennis_note.ui.dialog.DateSelectedListener
 import u.akita.tennis_note.ui.note.NoteFragment
@@ -24,6 +29,7 @@ import java.util.Locale
 class NoteListFragment: Fragment(), DateSelectedListener {
     private var _binding: FragmentNoteListBinding? = null
     private val binding get() = _binding!!
+    private lateinit var viewModel: NoteListViewModel
 
     override fun onAttach(context: Context){
         super.onAttach(context)
@@ -35,6 +41,7 @@ class NoteListFragment: Fragment(), DateSelectedListener {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentNoteListBinding.inflate(inflater, container, false)
+        viewModel = NoteListViewModel(requireActivity().application)
         return binding.root
     }
 
@@ -111,19 +118,43 @@ class NoteListFragment: Fragment(), DateSelectedListener {
                 .addToBackStack(null)
                 .commit()
         }
+
+        // LiveDataを監視してデータが変更されたときにUIを更新する
+        viewModel.getListData().observe(viewLifecycleOwner) { allMatches ->
+            Log.i("allNotes", allMatches.toString())
+            updateUI(allMatches)
+        }
         super.onViewCreated(view, savedInstanceState)
     }
 
-    private fun showDatePicker() {
-        val datePick = DatePick(this)
-        datePick.show(parentFragmentManager, "datePicker")
+    private fun updateUI(allMatches: List<MatchWithDate>?) {
+        binding.matchListContainer.removeAllViews()
+        val inflater = LayoutInflater.from(requireContext())
+
+        for(match in allMatches!!){
+            val itemBinding = DataBindingUtil.inflate<ItemNoteListBinding>(
+                inflater, R.layout.item_note_list, binding.matchListContainer, false
+            )
+            val matchTypeStr = MatchType.values().find { it.value == match.matchType.toString() }
+            itemBinding.matchDate.text = match.matchDate
+            itemBinding.matchScore.text = match.matchScore
+            itemBinding.opponent.text = match.opponent
+            itemBinding.matchType.text = matchTypeStr?.displayValue ?: "不明な試合種別"
+            itemBinding.matchId.text = match.matchId
+            itemBinding.matchDateId.text = match.matchDateId
+
+            binding.matchListContainer.addView(itemBinding.root)
+        }
     }
+
 
     override fun onDateSelected(year: Int, month: Int, day: Int) {
         val selectedDate = "$year/${month.plus(1)}/$day"
         binding.periodStartDate.setText(selectedDate)
 
     }
+
+
 
 
 }

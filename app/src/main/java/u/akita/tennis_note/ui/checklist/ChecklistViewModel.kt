@@ -8,7 +8,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import u.akita.tennis_note.TennisNote
 import u.akita.tennis_note.databinding.DialogCheckItemBinding
-import u.akita.tennis_note.databinding.ItemChecklistBinding
 import u.akita.tennis_note.enum.CheckCategory
 import u.akita.tennis_note.repository.model.Checklist
 
