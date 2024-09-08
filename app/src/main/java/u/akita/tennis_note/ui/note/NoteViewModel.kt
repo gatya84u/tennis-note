@@ -1,8 +1,11 @@
 package u.akita.tennis_note.ui.note
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import u.akita.tennis_note.TennisNote
 import u.akita.tennis_note.databinding.FragmentNoteBinding
 import u.akita.tennis_note.enum.MatchType
@@ -15,7 +18,7 @@ class NoteViewModel(application: Application): AndroidViewModel(application) {
     private val dateDao = getApplication<TennisNote>().database.matchDateManagerDao()
     private val matchDao = getApplication<TennisNote>().database.matchManagerDao()
 
-    fun registerMatchData(binding: FragmentNoteBinding) {
+    suspend fun registerMatchData(binding: FragmentNoteBinding) {
 
         val matchDate = binding.matchDate.text.toString()
         val matchName = binding.matchName.text.toString()
@@ -25,21 +28,25 @@ class NoteViewModel(application: Application): AndroidViewModel(application) {
         val lookBack = binding.lookingBackGame.text.toString()?:null
         val selectedItem = binding.matchType.selectedItem as String
         val selectedMatchType = MatchType.values().firstOrNull { it.displayValue == selectedItem }?.value
-        var matchDateId = binding.matchDateId.id
-        var matchId = binding.matchId.id
+        var matchDateId = binding.matchDateId.text.toString().toInt()
+        var matchId = binding.matchId.text.toString().toInt()
 
-        if(matchDateId == NULL){
-            val matchDateManager = MatchDateManager(0, matchDate, selectedMatchType.toString(), matchName, null)
-            matchDateId = dateDao.insert(matchDateManager).toInt()
+        return withContext(Dispatchers.IO){
+            val matchDateManager = MatchDateManager(matchDateId, matchDate, selectedMatchType.toString(), matchName, null)
+            val registerDateId = dateDao.upsert(matchDateManager).toInt()
 
-            val matchManager = MatchManager(0, matchDateId, opponent, selfScore, opponentScore, lookBack, null)
-            matchDao.insert(matchManager)
-        }else{
-//            val matchDateManager = MatchDateManager(matchDateId, matchDate, selectedMatchType.toString(), matchName, null)
-//            dateDao.update(matchDateManager)
+            Log.i("registerMatchData", registerDateId.toString())
 
-            val matchManager = MatchManager(matchId, matchDateId, opponent, selfScore, opponentScore, lookBack, null)
-            matchDao.update(matchManager)
+            val matchManager = MatchManager(matchId, registerDateId, opponent, selfScore, opponentScore, lookBack, null)
+            val registerMatchId = matchDao.upsert(matchManager).toInt()
+
+            Log.i("registerMatchData", registerMatchId.toString())
+
+            var resultMap: Map<String, Int> = mapOf(
+                "matchDateId" to registerDateId,
+                "matchId" to registerMatchId
+            )
+            resultMap
         }
     }
 }

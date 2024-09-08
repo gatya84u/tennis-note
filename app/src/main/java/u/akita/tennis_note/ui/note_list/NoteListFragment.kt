@@ -110,6 +110,7 @@ class NoteListFragment: Fragment(), DateSelectedListener {
                 arguments = Bundle().apply {
                     putString("matchDateId", "0")
                     putString("matchDate", currentDate)
+                    putString("matchId", "0")
                 }
             }
 

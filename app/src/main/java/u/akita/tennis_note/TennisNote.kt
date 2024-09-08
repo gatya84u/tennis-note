@@ -43,7 +43,7 @@ class TennisNote : Application() {
                     val instance = Room.databaseBuilder(
                         context.applicationContext,
                         MatchDatabase::class.java,
-                        "match_database"
+                        "match-note"
                     ).build()
                     INSTANCE = instance
                     instance

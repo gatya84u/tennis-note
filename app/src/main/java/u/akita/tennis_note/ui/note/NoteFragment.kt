@@ -3,12 +3,15 @@ package u.akita.tennis_note.ui.note
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import u.akita.tennis_note.databinding.FragmentNoteBinding
 import u.akita.tennis_note.enum.MatchType
 import u.akita.tennis_note.ui.dialog.DatePick
@@ -38,19 +41,26 @@ class NoteFragment : Fragment(), DateSelectedListener {
         super.onViewCreated(view, savedInstanceState)
 
         val initMatchDateId = arguments?.getString("matchDateId")
-        if (initMatchDateId != null) {
-            binding.matchDateId.text = initMatchDateId
+        val initMatchId = arguments?.getString("matchId")
 
-            if(initMatchDateId != "0"){
-                //TODO initMatchDateIdが0ではない場合、DBからデータを取得して初期値としてセット
-            }else{
-                val initMatchDate: Editable = Editable.Factory.getInstance().newEditable(arguments?.getString("matchDate"))
-                binding.matchDate.text = initMatchDate
-            }
+        binding.matchDateId.text = initMatchDateId
+        binding.matchId.text = initMatchId
+
+        if(initMatchDateId == "0"){
+            val initMatchDate: Editable = Editable.Factory.getInstance().newEditable(arguments?.getString("matchDate"))
+            binding.matchDate.text = initMatchDate
+        }else{
+            //TODO initMatchDateIdが0ではない場合、DBからデータを取得して初期値としてセット
         }
 
         binding.registerButton.setOnClickListener{
-            viewModel.registerMatchData(binding)
+            lifecycleScope.launch {
+                try{
+                    viewModel.registerMatchData(binding)
+                }catch (e: Exception){
+                    Log.e("NoteFragment", "Error", e)
+                }
+            }
         }
 
         binding.matchDate.setOnTouchListener{ v, event ->
