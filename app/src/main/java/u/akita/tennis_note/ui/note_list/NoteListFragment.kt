@@ -148,14 +148,26 @@ class NoteListFragment: Fragment(), DateSelectedListener {
         }
     }
 
-
     override fun onDateSelected(year: Int, month: Int, day: Int) {
         val selectedDate = "$year/${month.plus(1)}/$day"
         binding.periodStartDate.setText(selectedDate)
 
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("matchDate", binding.periodStartDate.text.toString())
+        outState.putString("matchType", binding.matchType.selectedItem.toString())
+    }
 
-
-
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        savedInstanceState?.let {
+            binding.periodStartDate.setText(it.getString("matchDate"))
+            binding.matchType.setSelection(
+                MatchType.values().indexOfFirst { type ->
+                    type.displayValue == it.getString("matchType")
+                })
+        }
+    }
 }
