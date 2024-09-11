@@ -1,6 +1,7 @@
 package u.akita.tennis_note
 
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -25,7 +26,8 @@ class MainActivity : AppCompatActivity() {
         // NavControllerの取得
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
         val navController = navHostFragment.navController
-
+        Log.d("MainActivity", "NavController: $navController")
+        Log.d("MainActivity", "NavController Current Destination: ${navController.currentDestination?.id}")
         //ボタンセット
         val appBarConfiguration = AppBarConfiguration(setOf(
                 R.id.navigation_checklist, R.id.navigation_note_list, R.id.navigation_schedule))

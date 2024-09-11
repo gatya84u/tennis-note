@@ -11,7 +11,9 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.launch
+import u.akita.tennis_note.R
 import u.akita.tennis_note.databinding.FragmentNoteBinding
 import u.akita.tennis_note.enum.MatchType
 import u.akita.tennis_note.ui.dialog.DatePick
@@ -42,7 +44,7 @@ class NoteFragment : Fragment(), DateSelectedListener {
 
         val initMatchDateId = arguments?.getString("matchDateId")
         val initMatchId = arguments?.getString("matchId")
-
+        val navController = findNavController()
         binding.matchDateId.text = initMatchDateId
         binding.matchId.text = initMatchId
 
@@ -57,6 +59,7 @@ class NoteFragment : Fragment(), DateSelectedListener {
             lifecycleScope.launch {
                 try{
                     viewModel.registerMatchData(binding)
+                    navController.navigate(R.id.transition_to_note_list)
                 }catch (e: Exception){
                     Log.e("NoteFragment", "Error", e)
                 }

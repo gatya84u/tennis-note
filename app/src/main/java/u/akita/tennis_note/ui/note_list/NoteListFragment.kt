@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import u.akita.tennis_note.R
 import u.akita.tennis_note.databinding.FragmentNoteListBinding
 import u.akita.tennis_note.databinding.ItemChecklistBinding
@@ -106,18 +107,12 @@ class NoteListFragment: Fragment(), DateSelectedListener {
         binding.matchType.setSelection(0)
 
         binding.newRegistration.setOnClickListener{
-            val fragment = NoteFragment().apply {
-                arguments = Bundle().apply {
-                    putString("matchDateId", "0")
-                    putString("matchDate", currentDate)
-                    putString("matchId", "0")
-                }
-            }
-
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.nav_host_fragment_activity_main, fragment)
-                .addToBackStack(null)
-                .commit()
+            val action = NoteListFragmentDirections.transitionToNote(
+                matchDateId = "0",
+                matchDate = currentDate,
+                matchId = "0"
+            )
+            findNavController().navigate(action)
         }
 
         // LiveDataを監視してデータが変更されたときにUIを更新する

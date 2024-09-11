@@ -20,14 +20,27 @@
             android:id="@+id/transition_to_note_list"
             app:destination="@id/navigation_note_list">
         </action>
+        <argument
+            android:name="matchDateId"
+            app:argType="string" />
+        <argument
+            android:name="matchDate"
+            app:argType="string" />
+        <argument
+            android:name="matchId"
+            app:argType="string" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_note_list"
         android:name="u.akita.tennis_note.ui.note_list.NoteListFragment"
         android:label="試合結果リスト"
-        tools:layout="@layout/fragment_note_list"
+        tools:layout="@layout/fragment_note_list">
+        <action
+            android:id="@+id/transition_to_note"
+            app:destination="@id/navigation_note"
         />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_schedule"

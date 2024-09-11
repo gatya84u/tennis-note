@@ -4,6 +4,7 @@ plugins {
     id("kotlin-kapt")
     id("com.google.devtools.ksp")
     id("kotlin-android")
+    id("androidx.navigation.safeargs.kotlin")
 }
 kotlin {
     jvmToolchain(17)
@@ -65,4 +66,22 @@ dependencies {
     testImplementation("androidx.room:room-testing:$roomVersion")
     implementation("androidx.room:room-paging:$roomVersion")
     annotationProcessor("androidx.room:room-compiler:$roomVersion")
+
+    /**
+     * safe args setup
+     */
+    val navVersion = "2.8.0"
+
+    // Jetpack Compose integration
+    implementation("androidx.navigation:navigation-compose:$navVersion")
+
+    // Views/Fragments integration
+    implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
+    implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
+
+    // Feature module support for Fragments
+    implementation("androidx.navigation:navigation-dynamic-features-fragment:$navVersion")
+
+    // Testing Navigation
+    androidTestImplementation("androidx.navigation:navigation-testing:$navVersion")
 }
