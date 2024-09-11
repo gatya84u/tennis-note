@@ -140,6 +140,15 @@ class NoteListFragment: Fragment(), DateSelectedListener {
             itemBinding.matchDateId.text = match.matchDateId
 
             binding.matchListContainer.addView(itemBinding.root)
+
+            binding.matchListContainer.setOnClickListener{
+                val action = NoteListFragmentDirections.transitionToNote(
+                    matchDateId = match.matchDateId,
+                    matchDate = match.matchDate,
+                    matchId = match.matchId
+                )
+                findNavController().navigate(action)
+            }
         }
     }
 

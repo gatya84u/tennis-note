@@ -48,11 +48,33 @@ class NoteFragment : Fragment(), DateSelectedListener {
         binding.matchDateId.text = initMatchDateId
         binding.matchId.text = initMatchId
 
+        //spinnerの設定
+        val adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            MatchType.values().map{it.displayValue}
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
+
+        binding.matchType.adapter = adapter
+        binding.matchType.setSelection(0)
+
         if(initMatchDateId == "0"){
             val initMatchDate: Editable = Editable.Factory.getInstance().newEditable(arguments?.getString("matchDate"))
             binding.matchDate.text = initMatchDate
         }else{
-            //TODO initMatchDateIdが0ではない場合、DBからデータを取得して初期値としてセット
+            lifecycleScope.launch {
+                val matchDetailInfo = viewModel.getMatchDetailData(initMatchId!!)
+                binding.matchDate.text = Editable.Factory.getInstance().newEditable(matchDetailInfo.matchDate)
+                binding.opponent.text = Editable.Factory.getInstance().newEditable(matchDetailInfo.opponent)
+                binding.scoreSelf.text = Editable.Factory.getInstance().newEditable(matchDetailInfo.gainGameCount.toString())
+                binding.scoreOpponent.text = Editable.Factory.getInstance().newEditable(matchDetailInfo.lostGameCount.toString())
+                binding.lookingBackGame.text = Editable.Factory.getInstance().newEditable(matchDetailInfo.matchNote)
+                binding.matchName.text = Editable.Factory.getInstance().newEditable(matchDetailInfo.matchName)
+
+                val matchType = MatchType.values().find { it.value == matchDetailInfo.matchType }
+                binding.matchType.setSelection(MatchType.values().indexOf(matchType))
+            }
         }
 
         binding.registerButton.setOnClickListener{
@@ -76,21 +98,8 @@ class NoteFragment : Fragment(), DateSelectedListener {
             }
         }
 
-        val adapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_spinner_item,
-            MatchType.values().map{it.displayValue}
-        )
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
 
-        binding.matchType.adapter = adapter
-        binding.matchType.setSelection(0)
         super.onViewCreated(view, savedInstanceState)
-    }
-
-    private fun showDatePicker() {
-        val datePick = DatePick(this)
-        datePick.show(parentFragmentManager, "datePicker")
     }
 
     override fun onDateSelected(year: Int, month: Int, day: Int) {

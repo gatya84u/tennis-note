@@ -13,11 +13,18 @@ import u.akita.tennis_note.repository.model.MatchDateManager
 import u.akita.tennis_note.repository.model.MatchManager
 import java.sql.Types.NULL
 import u.akita.tennis_note.repository.dao.MatchDateManagerDao
+import u.akita.tennis_note.repository.dataclass.MatchDetailInfo
 
 class NoteViewModel(application: Application): AndroidViewModel(application) {
     private val dateDao = getApplication<TennisNote>().database.matchDateManagerDao()
     private val matchDao = getApplication<TennisNote>().database.matchManagerDao()
+    private val matchInfoDao = getApplication<TennisNote>().database.matchInfoDao()
 
+    suspend fun getMatchDetailData(matchId: String): MatchDetailInfo {
+        return withContext(Dispatchers.IO) {
+            matchInfoDao.getMatchDetailInfo(matchId.toInt())
+        }
+    }
     suspend fun registerMatchData(binding: FragmentNoteBinding) {
 
         val matchDate = binding.matchDate.text.toString()
