@@ -1,7 +1,3 @@
 <resources>
-    <string name="app_name">tennis-note</string>
-    <string name="title_checklist">CheckList</string>
-    <string name="title_note">Note</string>
-    <string name="title_schedule">Schedule</string>
-    <string name="youtube_api_key">AIzaSyChF5dGmMxslyMk6ynqfR-LbSf44MGeG4w</string>
+    <string name="app_name">Tennis Record</string>
 </resources>
