@@ -42,9 +42,12 @@ class NoteViewModel(application: Application): AndroidViewModel(application) {
             val matchDateManager = MatchDateManager(matchDateId, matchDate, selectedMatchType.toString(), matchName, null)
             val registerDateId = dateDao.upsert(matchDateManager).toInt()
 
+            if(matchDateId == 0){
+                matchDateId = registerDateId
+            }
             Log.i("registerMatchData", registerDateId.toString())
 
-            val matchManager = MatchManager(matchId, registerDateId, opponent, selfScore, opponentScore, lookBack, null)
+            val matchManager = MatchManager(matchId, matchDateId, opponent, selfScore, opponentScore, lookBack, null)
             val registerMatchId = matchDao.upsert(matchManager).toInt()
 
             Log.i("registerMatchData", registerMatchId.toString())

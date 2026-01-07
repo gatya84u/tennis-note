@@ -71,6 +71,7 @@ class NoteFragment : Fragment(), DateSelectedListener {
                 binding.scoreOpponent.text = Editable.Factory.getInstance().newEditable(matchDetailInfo.lostGameCount.toString())
                 binding.lookingBackGame.text = Editable.Factory.getInstance().newEditable(matchDetailInfo.matchNote)
                 binding.matchName.text = Editable.Factory.getInstance().newEditable(matchDetailInfo.matchName)
+//                binding.movieUrl.text = Editable.Factory.getInstance().newEditable(matchDetailInfo.movieUrl)
 
                 val matchType = MatchType.values().find { it.value == matchDetailInfo.matchType }
                 binding.matchType.setSelection(MatchType.values().indexOf(matchType))

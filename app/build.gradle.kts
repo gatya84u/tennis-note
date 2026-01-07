@@ -84,4 +84,9 @@ dependencies {
 
     // Testing Navigation
     androidTestImplementation("androidx.navigation:navigation-testing:$navVersion")
+
+    /**
+     * youtube setup
+     */
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
 }
